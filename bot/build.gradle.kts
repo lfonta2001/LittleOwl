@@ -8,9 +8,11 @@ application {
 
 dependencies {
 
-    implementation("net.dv8tion:JDA:5.6.1")
+    implementation("net.dv8tion:JDA:6.3.2")
 
-    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("ch.qos.logback:logback-classic:1.5.34")
 
-    implementation("io.github.cdimascio:java-dotenv:5.2.2")
+    implementation("io.github.cdimascio:dotenv-java:3.2.0")
+
+    implementation("org.reflections:reflections:0.10.2")
 }
