@@ -1,4 +1,4 @@
-package online.theowlery.types;
+package online.theowlery.types.enums;
 
 public enum MiddlewareResult {
     CONTINUE,

@@ -1,5 +1,10 @@
 package online.theowlery.services;
 
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import online.theowlery.mappers.CommandMapper;
 import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.Service;
 
@@ -29,6 +34,14 @@ public class CommandService {
         client.updateCommands()
                 .addCommands(commandData)
                 .queue();
+    }
+
+    public void cleanCommands() {
+        List<Command> botCommands = client.retrieveCommands().complete();
+
+        for (Command command : botCommands) {
+            client.deleteCommandById(command.getId()).queue();
+        }
     }
 
     public Optional<ISlashCommand> get(String name) {
