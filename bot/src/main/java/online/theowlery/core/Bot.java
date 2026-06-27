@@ -5,28 +5,22 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import online.theowlery.config.IntentsConfig;
 import online.theowlery.contexts.ApplicationContext;
+import online.theowlery.services.CommandService;
+import online.theowlery.types.annotations.CoreClass;
 
+@CoreClass
 public class Bot {
-    private final ApplicationContext applicationContext;
 
-    private final Dotenv dotenv;
+    private final CommandService service;
+    private final Loader loader;
 
-    private final JDA client;
-
-    public Bot() {
-        applicationContext = ApplicationContext.create();
-
-        dotenv = Dotenv.configure()
-                .directory("bot/src/main/resources")
-                .ignoreIfMalformed()
-                .load();
-
-        client = JDABuilder.createDefault(dotenv.get("DISCORD_TOKEN"))
-                .enableIntents(IntentsConfig.getIntents())
-                .build();
+    public Bot(CommandService service, Loader loader) {
+        this.loader = loader;
+        this.service = service;
     }
 
     public void start() {
-        Loader.mainLoad(client, applicationContext);
+        service.cleanCommands();
+        loader.load();
     }
 }
