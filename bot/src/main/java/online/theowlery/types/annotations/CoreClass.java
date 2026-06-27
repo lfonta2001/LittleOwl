@@ -8,5 +8,7 @@ import java.lang.annotation.Target;
 @Component
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Service {
+public @interface CoreClass {
+    // This annotation must be used only on the main classes of a module
+    // only the main entry point of a specific utility
 }
