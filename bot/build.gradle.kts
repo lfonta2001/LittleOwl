@@ -15,4 +15,6 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-java:3.2.0")
 
     implementation("org.reflections:reflections:0.10.2")
+
+    implementation("org.projectlombok:lombok:1.18.46")
 }

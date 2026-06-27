@@ -18,15 +18,13 @@ public class AvatarCommand implements ISlashCommand {
 
     @Override
     public CommandDescriptor getDescriptor() {
-        return new CommandDescriptor(
-                "avatar",
-                "Retrieves user avatar image.",
-                CommandCategory.UTILITY,
-                30,
-                true,
-                false,
-                null
-        );
+        return CommandDescriptor.builder()
+                .name("avatar")
+                .description("Retrieves user avatar.")
+                .category(CommandCategory.UTILITY)
+                .cooldown(30)
+                .guildOnly(true)
+                .build();
     }
 
     @Override

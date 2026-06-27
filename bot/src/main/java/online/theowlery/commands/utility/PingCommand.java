@@ -18,6 +18,8 @@ public class PingCommand implements ISlashCommand {
                 2,
                 false,
                 false,
+                null,
+                null,
                 null
         );
     }
