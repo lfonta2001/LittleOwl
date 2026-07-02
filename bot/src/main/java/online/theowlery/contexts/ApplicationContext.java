@@ -5,10 +5,7 @@ import online.theowlery.exceptions.BeanCreationException;
 import online.theowlery.exceptions.BeanNotFoundException;
 import online.theowlery.exceptions.CircularDependencyException;
 import online.theowlery.exceptions.InvalidBeanException;
-import online.theowlery.types.annotations.Bean;
-import online.theowlery.types.annotations.Component;
-import online.theowlery.types.annotations.Configuration;
-import online.theowlery.types.annotations.Inject;
+import online.theowlery.types.annotations.*;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
@@ -32,6 +29,9 @@ public final class ApplicationContext {
 
     @Getter
     private final Set<Class<?>> configDefinitions = new HashSet<>();
+
+    @Getter
+    private final Map<Method, Class<?>> initializers = new HashMap<>();
 
     private final Set<Class<?>> creating = new HashSet<>();
 
@@ -62,6 +62,9 @@ public final class ApplicationContext {
                             factoryBeanMethods.put(returnType, method);
                             factoryMethodOwners.put(method, clazz);
                     });
+            Arrays.stream(clazz.getMethods())
+                    .filter(method -> method.isAnnotationPresent(Initialize.class))
+                    .forEach(method -> initializers.put(method, clazz));
         }
 
         configDefinitions.addAll(configDefined);
@@ -83,6 +86,29 @@ public final class ApplicationContext {
         beanDefinitions.removeIf(Class::isInterface);
     }
 
+    private void initializeBeans() {
+        for (Method method : initializers.keySet()) {
+            Class<?> declaringClass = initializers.get(method);
+
+            if (method.getReturnType() != Void.TYPE) {
+                throw new InvalidBeanException(declaringClass, "@Initialize methods must return void.");
+            }
+
+            if (Modifier.isStatic(method.getModifiers())) {
+                throw new InvalidBeanException(declaringClass, "@Initialize methods cannot be static.");
+            }
+
+            Object parent = getOrCreateBeansOfType(declaringClass).getFirst();
+            Object[] parameters = resolveParameters(method.getParameters());
+
+            try {
+                method.invoke(parent, parameters);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     private Object createBean(Class<?> type) {
         if (beans.containsKey(type)) {
             return beans.get(type);
@@ -96,7 +122,7 @@ public final class ApplicationContext {
             return createClassBean(type);
         }
 
-        Class<?> implementation = findUniqueImlementation(type);
+        Class<?> implementation = findUniqueImplementation(type);
 
         if (implementation != null) {
             return createBean(implementation);
@@ -266,7 +292,7 @@ public final class ApplicationContext {
         );
     }
 
-    private Class<?> findUniqueImlementation(Class<?> type) {
+    private Class<?> findUniqueImplementation(Class<?> type) {
         List<Class<?>> candidates = beanDefinitions.stream()
                 .filter(type::isAssignableFrom)
                 .filter(candidate -> !candidate.equals(type))
@@ -310,12 +336,12 @@ public final class ApplicationContext {
         ApplicationContext ctx = new ApplicationContext();
 
         Set<Class<?>> configDefinitions = ctx.getConfigDefinitions();
-
-        configDefinitions.forEach(ctx::createBean);
-
         Set<Class<?>> beanDefinitions = ctx.getBeanDefinitions();
 
+        configDefinitions.forEach(ctx::createBean);
         beanDefinitions.forEach(ctx::createBean);
+
+        ctx.initializeBeans();
 
         return ctx;
     }
