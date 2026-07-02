@@ -16,7 +16,6 @@ public class DiscordConfig {
     @Bean
     public Dotenv dotenv() {
         return Dotenv.configure()
-                .directory("bot/src/main/resources")
                 .ignoreIfMalformed()
                 .load();
     }
