@@ -127,7 +127,7 @@ To make a contribution, follow the steps below:
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/lfonta2001/LittleOwl/blob/master/LICENSE) file for details.
 
 <p align="right" >(<a href="#readme-top">go up</a>)</p>
 
