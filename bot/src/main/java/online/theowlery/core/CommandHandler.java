@@ -25,13 +25,21 @@ public class CommandHandler {
     public void handle(SlashCommandInteractionEvent event) {
         System.out.println("[CommandHandler] Se esta manejando esto mi brother del alma, no te toques");
 
-        CommandContext context = contextService.createCommandContext(event);
-
         Optional<ISlashCommand> posCommand = commandService.get(event.getName());
 
-        if (posCommand.isEmpty()) return;
+        if (posCommand.isEmpty()) {
+            event.reply("No se encontro el comando").queue();
+            return;
+        }
 
         ISlashCommand command = posCommand.get();
+
+        if (command.getDescriptor().guildOnly() && !event.isFromGuild()) {
+            event.reply("Este comando solo se puede usar en un servidor").queue();
+            return;
+        }
+
+        CommandContext context = contextService.createCommandContext(event);
 
         middlewareHandler.execute(context, command);
 

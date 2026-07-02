@@ -11,17 +11,13 @@ public class PingCommand implements ISlashCommand {
 
     @Override
     public CommandDescriptor getDescriptor() {
-        return new CommandDescriptor(
-                "ping",
-                "Command to check if bot is up.",
-                CommandCategory.UTILITY,
-                2,
-                false,
-                false,
-                null,
-                null,
-                null
-        );
+        return CommandDescriptor.builder()
+                .name("ping")
+                .description("Command to check if bot is up.")
+                .category(CommandCategory.UTILITY)
+                .cooldown(2)
+                .guildOnly(false)
+                .build();
     }
 
     @Override

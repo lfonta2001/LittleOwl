@@ -5,7 +5,6 @@ import online.theowlery.types.enums.CommandCategory;
 import online.theowlery.types.enums.GuildPermissions;
 
 import java.util.List;
-import java.util.Vector;
 
 @Builder
 public record CommandDescriptor(
@@ -15,7 +14,8 @@ public record CommandDescriptor(
         int cooldown,
         boolean guildOnly,
         boolean ownerOnly,
-        Vector<GuildPermissions> permissions,
+        /* boolean personalOnly, usar esto para comandos que solo se puedan usar en el chat con el bot, por ejemplo configuraciones personales*/
+        List<GuildPermissions> permissions,
         List<CommandOptionsDescriptor> options,
         List<SubCommandDescriptor> subcommands) {
 }

@@ -16,7 +16,8 @@ public final class IntentsConfig {
                 GatewayIntent.MESSAGE_CONTENT,
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_MODERATION,
-                GatewayIntent.GUILD_VOICE_STATES
+                GatewayIntent.GUILD_VOICE_STATES,
+                GatewayIntent.GUILD_PRESENCES
         );
     }
 
