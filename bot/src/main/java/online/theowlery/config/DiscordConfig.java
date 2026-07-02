@@ -3,11 +3,15 @@ package online.theowlery.config;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import online.theowlery.types.annotations.Bean;
 import online.theowlery.types.annotations.Configuration;
+import online.theowlery.types.annotations.Initialize;
+
+import java.util.List;
 
 @Configuration
-public class BotConfig {
+public class DiscordConfig {
 
     @Bean
     public Dotenv dotenv() {
@@ -30,5 +34,10 @@ public class BotConfig {
                 .enableCache(IntentsConfig.getCacheFlags())
                 .setMemberCachePolicy(IntentsConfig.getMemberCachePolicy())
                 .build();
+    }
+
+    @Initialize
+    public void registerListeners(JDA client, List<ListenerAdapter> listeners) {
+        client.addEventListener(listeners.toArray());
     }
 }

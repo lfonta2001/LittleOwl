@@ -1,9 +1,8 @@
 package online.theowlery.services;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import online.theowlery.mappers.CommandMapper;
 import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.Service;
@@ -16,32 +15,42 @@ public class CommandService {
     private final Map<String, ISlashCommand> commands = new HashMap<>();
 
     private final JDA client;
+    private final GuildService guildService;
 
-    public CommandService(JDA client, List<ISlashCommand> commands) {
+    public CommandService(JDA client, GuildService guildService, List<ISlashCommand> commands) {
         this.client = client;
-        commands.forEach(command -> {
-            this.commands.put(command.getDescriptor().name(), command);
-        });
+        this.guildService = guildService;
+        commands.forEach(command -> this.commands.put(command.getDescriptor().name(), command));
     }
 
     public void loadCommands() {
-        List<CommandData> commandData = commands
-                .values().stream()
+        List<ISlashCommand> guildCommands = commands.values().stream()
+                .filter(cmd -> cmd.getDescriptor().guildOnly())
+                .toList();
+
+        List<ISlashCommand> globalCommands = commands.values().stream()
+                .filter(cmd -> !cmd.getDescriptor().guildOnly())
+                .toList();
+
+        List<CommandData> guildCommandsData = guildCommands.stream()
                 .map(ISlashCommand::getDescriptor)
                 .map(CommandMapper::getCommandData)
                 .toList();
 
-        client.updateCommands()
-                .addCommands(commandData)
-                .queue();
-    }
+        List<CommandData> globalCommandsData = globalCommands.stream()
+                .map(ISlashCommand::getDescriptor)
+                .map(CommandMapper::getCommandData)
+                .toList();
 
-    public void cleanCommands() {
-        List<Command> botCommands = client.retrieveCommands().complete();
-
-        for (Command command : botCommands) {
-            client.deleteCommandById(command.getId()).queue();
+        for (Guild guild : guildService.getGuilds()) {
+            guild.updateCommands()
+                    .addCommands(guildCommandsData)
+                    .queue();
         }
+
+        client.updateCommands()
+                .addCommands(globalCommandsData)
+                .queue();
     }
 
     public Optional<ISlashCommand> get(String name) {
