@@ -15,6 +15,7 @@ public record CommandDescriptor(
         boolean guildOnly,
         boolean ownerOnly,
         /* boolean personalOnly, usar esto para comandos que solo se puedan usar en el chat con el bot, por ejemplo configuraciones personales*/
+        boolean longExecution,
         List<GuildPermissions> permissions,
         List<CommandOptionsDescriptor> options,
         List<SubCommandDescriptor> subcommands) {

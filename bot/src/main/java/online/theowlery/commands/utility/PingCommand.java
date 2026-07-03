@@ -2,12 +2,19 @@ package online.theowlery.commands.utility;
 
 import online.theowlery.contexts.CommandContext;
 import online.theowlery.descriptors.CommandDescriptor;
+import online.theowlery.services.MessageService;
 import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.SlashCommand;
 import online.theowlery.types.enums.CommandCategory;
 
 @SlashCommand
 public class PingCommand implements ISlashCommand {
+
+    private final MessageService messageService;
+
+    public PingCommand(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @Override
     public CommandDescriptor getDescriptor() {
@@ -22,6 +29,6 @@ public class PingCommand implements ISlashCommand {
 
     @Override
     public void execute(CommandContext context) {
-        context.slashCommandInteractionEvent().reply("Pong!").queue();
+        messageService.sendReply(context.slashCommandInteraction(), "Pong!");
     }
 }
