@@ -23,7 +23,7 @@ public class CommandHandler {
     }
 
     public void handle(SlashCommandInteractionEvent event) {
-        System.out.println("[CommandHandler] Se esta manejando esto mi brother del alma, no te toques");
+        event.deferReply().queue();
 
         Optional<ISlashCommand> posCommand = commandService.get(event.getName());
 
