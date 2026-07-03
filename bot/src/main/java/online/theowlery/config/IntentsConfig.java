@@ -26,6 +26,6 @@ public final class IntentsConfig {
     }
 
     public static MemberCachePolicy getMemberCachePolicy() {
-        return MemberCachePolicy.NONE;
+        return MemberCachePolicy.ONLINE;
     }
 }
