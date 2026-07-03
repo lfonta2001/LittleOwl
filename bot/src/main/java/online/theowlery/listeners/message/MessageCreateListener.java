@@ -11,6 +11,6 @@ public class MessageCreateListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         System.out.println("Llego un mensaje aca amistad");
-        System.out.println(((MessageReceivedEvent) event).getMessage().getContentRaw());
+        System.out.println(event.getMessage().getContentRaw());
     }
 }
