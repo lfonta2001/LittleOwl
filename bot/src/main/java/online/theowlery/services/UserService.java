@@ -7,6 +7,8 @@ import online.theowlery.types.annotations.Service;
 public class UserService {
 
     public UserData getUserData(String userId) {
-        return UserData.builder().build();
+        return UserData.builder()
+                .id(userId)
+                .build();
     }
 }

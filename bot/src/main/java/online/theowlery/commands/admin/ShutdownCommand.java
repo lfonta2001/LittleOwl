@@ -49,10 +49,10 @@ public class ShutdownCommand implements SlashCommandContract {
         }
 
         if (context.userData().id().equals(ownerId)) {
-            messageService.sendReply(context, "command.shutdown.successReply");
+            messageService.sendReply(context, "command.shutdown.success_reply");
             client.shutdown();
         } else {
-            messageService.sendReply(context, "command.shutdown.notOwnerReply");
+            messageService.sendReply(context, "command.shutdown.not_owner_reply");
         }
     }
 }

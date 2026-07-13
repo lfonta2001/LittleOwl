@@ -47,8 +47,13 @@ public class CommandHandler {
             }
 
             SlashCommandContract command = posCommand.get();
+            String restOfMessage = "in private chat.";
 
-            logger.info("Executing command /{} by user {} {}", command.getDescriptor().id(), event.getUser().getId(), event.getGuild().getId());
+            if (event.isFromGuild()) {
+                restOfMessage = "in guild " + event.getGuild().getId();
+            }
+
+            logger.info("Executing command /{} by user {} {}", command.getDescriptor().id(), event.getUser().getId(), restOfMessage);
 
             if (command.getDescriptor().longExecution()) {
                 messageService.deferReply(event.getInteraction());
@@ -62,6 +67,7 @@ public class CommandHandler {
             long endTime = System.nanoTime();
             logger.info("Command /{} executed by user {} successfully in {}ms", context.commandInformation().id(), context.interactionsUser().getId(), (endTime - startTime) / 1_000_000);
         } catch (Exception e) {
+            logger.error("Failed to execute command");
             exceptionHandler.handle(e);
         }
     }
