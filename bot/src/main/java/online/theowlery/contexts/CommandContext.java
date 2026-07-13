@@ -1,15 +1,26 @@
 package online.theowlery.contexts;
 
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
+import lombok.Builder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
+import online.theowlery.descriptors.CommandDescriptor;
+import online.theowlery.entities.GuildData;
+import online.theowlery.entities.GuildSettings;
+import online.theowlery.entities.UserData;
+import online.theowlery.types.enums.LocaleType;
+import online.theowlery.types.interfaces.SharedContext;
 
-import java.util.Locale;
-
+@Builder
 public record CommandContext(
         SlashCommandInteraction slashCommandInteraction,
-        Guild guild, Member member,
-        User user,
-        Locale locale/*, GuildConfig guildConfig */) {
+        LocaleType locale,
+        CommandDescriptor commandInformation,
+        GuildData guildData,
+        GuildSettings guildSettings,
+        UserData userData
+) implements SharedContext {
+
+    public User interactionsUser() {
+        return slashCommandInteraction.getUser();
+    }
 }

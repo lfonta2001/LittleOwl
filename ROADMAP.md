@@ -30,11 +30,11 @@ Agregar un comando nuevo debería requerir únicamente:
 
 ### Tareas
 
-* [ ] CommandContext
-* [ ] CommandContextBuilder
+* [x] CommandContext
+* [x] CommandContextBuilder
 * [ ] EventContext
 * [ ] EventContextBuilder
-* [ ] Inyección de CommandContext en los comandos
+* [x] Inyección de CommandContext en los comandos
 
 ### Resultado esperado
 
