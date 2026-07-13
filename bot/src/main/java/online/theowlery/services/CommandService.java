@@ -6,13 +6,17 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import online.theowlery.mappers.CommandMapper;
 import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 @Service
 public class CommandService {
 
-    private final Map<String, ISlashCommand> commands = new HashMap<>();
+    private static final Logger log = LoggerFactory.getLogger(CommandService.class);
+
+    private final Map<String, SlashCommandContract> commands = new HashMap<>();
 
     private final JDA client;
     private final GuildService guildService;

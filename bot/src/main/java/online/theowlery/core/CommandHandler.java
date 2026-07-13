@@ -7,11 +7,15 @@ import online.theowlery.services.ContextService;
 import online.theowlery.services.MessageService;
 import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
 @Handler
 public class CommandHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(CommandHandler.class);
 
     private final ContextService contextService;
     private final CommandService commandService;
@@ -39,10 +43,7 @@ public class CommandHandler {
 
         ISlashCommand command = posCommand.get();
 
-        if (command.getDescriptor().guildOnly() && !event.isFromGuild()) {
-            messageService.sendReply(event.getInteraction(),"Este comando solo se puede usar en un servidor");
-            return;
-        }
+            logger.info("Executing command /{} by user {} {}", command.getDescriptor().id(), event.getUser().getId(), event.getGuild().getId());
 
         if (command.getDescriptor().longExecution()) {
             messageService.deferReply(event.getInteraction());

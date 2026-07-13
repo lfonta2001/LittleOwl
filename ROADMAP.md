@@ -67,13 +67,13 @@ Los comandos no deberían contener bloques try/catch salvo casos excepcionales.
 
 ### Tareas
 
-* [ ] Configurar Logback
-* [ ] Logs por consola
-* [ ] Logs en archivos rotativos
-* [ ] Logger por clase
-* [ ] Logs de startup
-* [ ] Logs de ejecución de comandos
-* [ ] Logs de errores
+* [x] Configurar Logback
+* [x] Logs por consola
+* [x] Logs en archivos rotativos
+* [x] Logger por clase
+* [x] Logs de startup
+* [x] Logs de ejecución de comandos
+* [x] Logs de errores
 
 ### Resultado esperado
 
@@ -157,10 +157,10 @@ Los comandos actúan únicamente como capa de entrada.
 
 ### Tareas
 
-* [ ] Estructura de traducciones
-* [ ] Carga de archivos de idioma
-* [ ] Resolución por locale
-* [ ] Helpers de traducción
+* [x] Estructura de traducciones
+* [x] Carga de archivos de idioma
+* [x] Resolución por locale
+* [x] Helpers de traducción
 
 ### Resultado esperado
 
