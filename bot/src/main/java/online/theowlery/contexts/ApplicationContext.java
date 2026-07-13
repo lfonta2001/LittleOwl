@@ -7,6 +7,8 @@ import online.theowlery.exceptions.CircularDependencyException;
 import online.theowlery.exceptions.InvalidBeanException;
 import online.theowlery.types.annotations.*;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
@@ -14,6 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class ApplicationContext {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationContext.class);
 
     @Getter
     private final Map<Class<?>, Object> beans = new HashMap<>();
@@ -79,7 +83,13 @@ public final class ApplicationContext {
                 .collect(Collectors.toSet());
 
         for (Class<? extends Annotation> annotation : componentsAnnotations) {
-            beanDefinitions.addAll(reflections.getTypesAnnotatedWith(annotation));
+            Set<Class<?>> beanDefined = reflections.getTypesAnnotatedWith(annotation);
+            for (Class<?> clazz : beanDefined) {
+                Arrays.stream(clazz.getMethods())
+                        .filter(method -> method.isAnnotationPresent(Initialize.class))
+                        .forEach(method -> initializers.put(method, clazz));
+            }
+            beanDefinitions.addAll(beanDefined);
         }
 
         beanDefinitions.removeIf(Class::isAnnotation);
@@ -338,9 +348,12 @@ public final class ApplicationContext {
         Set<Class<?>> configDefinitions = ctx.getConfigDefinitions();
         Set<Class<?>> beanDefinitions = ctx.getBeanDefinitions();
 
+        logger.info("Loading {} configuration classes...", configDefinitions.size());
         configDefinitions.forEach(ctx::createBean);
+        logger.info("Loading {} bean classes...", beanDefinitions.size());
         beanDefinitions.forEach(ctx::createBean);
 
+        logger.info("Initializing @Initialize annotated beans...");
         ctx.initializeBeans();
 
         return ctx;
