@@ -197,7 +197,7 @@ Comprobar que el flujo completo funciona correctamente.
 
 ### Tareas
 
-* [ ] ReadyListener
+* [x] ReadyListener
 * [ ] GuildJoinListener
 * [ ] GuildLeaveListener
 * [ ] MessageCreateListener
