@@ -2,11 +2,12 @@ package online.theowlery.core;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import online.theowlery.contexts.CommandContext;
+import online.theowlery.exceptions.UnknownCommandException;
 import online.theowlery.services.CommandService;
 import online.theowlery.services.ContextService;
 import online.theowlery.services.MessageService;
-import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.Handler;
+import online.theowlery.types.interfaces.SlashCommandContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,40 +20,49 @@ public class CommandHandler {
 
     private final ContextService contextService;
     private final CommandService commandService;
-    private final MiddlewareHandler middlewareHandler;
     private final MessageService messageService;
+    private final MiddlewareHandler middlewareHandler;
+    private final ExceptionHandler exceptionHandler;
 
     public CommandHandler(
             ContextService contextService,
             CommandService commandService,
+            MessageService messageService,
             MiddlewareHandler middlewareHandler,
-            MessageService messageService) {
+            ExceptionHandler exceptionHandler) {
         this.contextService = contextService;
         this.commandService = commandService;
-        this.middlewareHandler = middlewareHandler;
         this.messageService = messageService;
+        this.middlewareHandler = middlewareHandler;
+        this.exceptionHandler = exceptionHandler;
     }
 
     public void handle(SlashCommandInteractionEvent event) {
-        Optional<ISlashCommand> posCommand = commandService.get(event.getName());
+        try {
+            long startTime = System.nanoTime();
+            Optional<SlashCommandContract> posCommand = commandService.get(event.getName());
 
-        if (posCommand.isEmpty()) {
-            messageService.sendReply(event.getInteraction(), "No se encontró el comando");
-            return;
-        }
+            if (posCommand.isEmpty()) {
+                throw new UnknownCommandException(event.getInteraction());
+            }
 
-        ISlashCommand command = posCommand.get();
+            SlashCommandContract command = posCommand.get();
 
             logger.info("Executing command /{} by user {} {}", command.getDescriptor().id(), event.getUser().getId(), event.getGuild().getId());
 
-        if (command.getDescriptor().longExecution()) {
-            messageService.deferReply(event.getInteraction());
+            if (command.getDescriptor().longExecution()) {
+                messageService.deferReply(event.getInteraction());
+            }
+
+            CommandContext context = contextService.createCommandContext(event, command);
+
+            middlewareHandler.execute(context);
+
+            command.execute(context);
+            long endTime = System.nanoTime();
+            logger.info("Command /{} executed by user {} successfully in {}ms", context.commandInformation().id(), context.interactionsUser().getId(), (endTime - startTime) / 1_000_000);
+        } catch (Exception e) {
+            exceptionHandler.handle(e);
         }
-
-        CommandContext context = contextService.createCommandContext(event);
-
-        middlewareHandler.execute(context, command);
-
-        command.execute(context);
     }
 }

@@ -1,6 +1,6 @@
 package online.theowlery.types.enums;
 
-public enum CommandOption {
+public enum CommandOptionType {
     ATTACHMENT,
     BOOLEAN,
     CHANNEL,
@@ -9,8 +9,6 @@ public enum CommandOption {
     NUMBER,
     ROLE,
     STRING,
-    SUB_COMMAND,
-    SUB_COMMAND_GROUP,
     UNKNOWN,
     USER,
 }

@@ -5,12 +5,17 @@ import net.dv8tion.jda.api.JDA;
 import online.theowlery.contexts.CommandContext;
 import online.theowlery.descriptors.CommandDescriptor;
 import online.theowlery.services.MessageService;
-import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.SlashCommand;
 import online.theowlery.types.enums.CommandCategory;
+import online.theowlery.types.interfaces.SlashCommandContract;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SlashCommand
-public class ShutdownCommand implements ISlashCommand {
+public class ShutdownCommand implements SlashCommandContract {
+
+    private static final Logger logger = LoggerFactory.getLogger(ShutdownCommand.class);
 
     private final Dotenv dotenv;
     private final JDA client;
@@ -23,11 +28,11 @@ public class ShutdownCommand implements ISlashCommand {
         this.messageService = messageService;
     }
 
+    @NotNull
     @Override
     public CommandDescriptor getDescriptor() {
         return CommandDescriptor.builder()
-                .name("shutdown")
-                .description("This commands shuts down the bot, only bot owner can use.")
+                .id("shutdown")
                 .category(CommandCategory.BOT_OWNER)
                 .ownerOnly(true)
                 .build();
@@ -38,16 +43,16 @@ public class ShutdownCommand implements ISlashCommand {
         String ownerId = dotenv.get("BOT_OWNER_DISCORD_ID");
 
         if (ownerId == null) {
-            System.out.println("Owner ID not found in environmental variables");
-            messageService.sendCommandUnableToExecute(context.slashCommandInteraction());
+            logger.error("Owner ID not found in environmental variables");
+            messageService.sendCommandUnableToExecute(context);
             return;
         }
 
-        if (context.user().getId().equals(ownerId)) {
-            messageService.sendReply(context.slashCommandInteraction(), "Shutting down bot...");
+        if (context.userData().id().equals(ownerId)) {
+            messageService.sendReply(context, "command.shutdown.successReply");
             client.shutdown();
         } else {
-            messageService.sendReply(context.slashCommandInteraction(), "You are not the bot owner");
+            messageService.sendReply(context, "command.shutdown.notOwnerReply");
         }
     }
 }

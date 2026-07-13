@@ -1,4 +1,8 @@
 package online.theowlery.entities;
 
-public class GuildData {
-}
+import lombok.Builder;
+
+@Builder
+public record GuildData(
+        String id,
+        String name) { }

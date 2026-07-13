@@ -3,12 +3,13 @@ package online.theowlery.commands.utility;
 import online.theowlery.contexts.CommandContext;
 import online.theowlery.descriptors.CommandDescriptor;
 import online.theowlery.services.MessageService;
-import online.theowlery.types.ISlashCommand;
 import online.theowlery.types.annotations.SlashCommand;
 import online.theowlery.types.enums.CommandCategory;
+import online.theowlery.types.interfaces.SlashCommandContract;
+import org.jetbrains.annotations.NotNull;
 
 @SlashCommand
-public class PingCommand implements ISlashCommand {
+public class PingCommand implements SlashCommandContract {
 
     private final MessageService messageService;
 
@@ -16,11 +17,11 @@ public class PingCommand implements ISlashCommand {
         this.messageService = messageService;
     }
 
+    @NotNull
     @Override
     public CommandDescriptor getDescriptor() {
         return CommandDescriptor.builder()
-                .name("ping")
-                .description("Command to check if bot is up.")
+                .id("ping")
                 .category(CommandCategory.UTILITY)
                 .cooldown(2)
                 .guildOnly(false)
@@ -29,6 +30,6 @@ public class PingCommand implements ISlashCommand {
 
     @Override
     public void execute(CommandContext context) {
-        messageService.sendReply(context.slashCommandInteraction(), "Pong!");
+        messageService.sendReply(context, "command.ping.reply");
     }
 }

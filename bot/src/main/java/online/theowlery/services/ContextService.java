@@ -1,7 +1,9 @@
 package online.theowlery.services;
 
+import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import online.theowlery.contexts.CommandContext;
+import online.theowlery.contexts.EventContext;
 import online.theowlery.entities.GuildData;
 import online.theowlery.entities.GuildSettings;
 import online.theowlery.entities.UserData;
@@ -48,6 +50,13 @@ public class ContextService {
                 .build();
     }
 
-        return new CommandContext(event, event.getGuild(), event.getMember(), event.getUser(), loc);
+    public EventContext createEventContext(Event event) {
+
+        return EventContext.builder()
+                .eventType(event.getClass())
+                .event(event)
+                .locale(localeManager.resolve(null, null, null))
+                //.user()
+                .build();
     }
 }
