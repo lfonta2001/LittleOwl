@@ -48,12 +48,12 @@ Los comandos trabajan con CommandContext y no directamente con objetos de JDA.
 
 ### Tareas
 
-* [ ] BotException
-* [ ] CommandException
-* [ ] PermissionException
-* [ ] CooldownException
-* [ ] NotGuildExecutedException
-* [ ] ExceptionHandler
+* [x] BotException
+* [x] CommandException
+* [x] PermissionException
+* [x] CooldownException
+* [x] NotGuildExecutedException
+* [x] ExceptionHandler
 
 ### Resultado esperado
 
