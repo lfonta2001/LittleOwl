@@ -87,8 +87,8 @@ Toda actividad relevante queda registrada automáticamente.
 
 ### Tareas
 
-* [ ] IMiddleware
-* [ ] MiddlewareHandler
+* [x] MiddlewareContracts
+* [x] MiddlewareHandler
 * [ ] ContextMiddleware
 * [ ] CooldownMiddleware
 * [ ] PermissionMiddleware
