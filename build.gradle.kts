@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    group = "online.theowlery"
+    group = "com.lfonta.theowlery"
     version = "1.0-SNAPSHOT"
 
     repositories {

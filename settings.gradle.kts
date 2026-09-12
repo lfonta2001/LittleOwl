@@ -4,7 +4,7 @@ include(
     "bot",
 //    "common",
 //    "persistence",
-//    "api",
+    "api",
 //    "dashboard",
 //    "docs",
 //    "shared-config",

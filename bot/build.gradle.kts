@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClass.set("online.theowlery.Main")
+    mainClass.set("com.lfonta.theowlery.Main")
 }
 
 dependencies {
