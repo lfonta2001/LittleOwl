@@ -1,7 +1,7 @@
-package online.theowlery.commands.utility;
+package com.lfonta.theowlery.commands.utility;
 
-import online.theowlery.descriptors.CommandDescriptor;
-import online.theowlery.types.enums.CommandCategory;
+import com.lfonta.theowlery.descriptors.CommandDescriptor;
+import com.lfonta.theowlery.types.enums.CommandCategory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

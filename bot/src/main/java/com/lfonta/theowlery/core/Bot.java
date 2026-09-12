@@ -1,6 +1,6 @@
 package com.lfonta.theowlery.core;
 
-import online.theowlery.types.annotations.CoreClass;
+import com.lfonta.theowlery.types.annotations.CoreClass;
 
 @CoreClass
 public class Bot {

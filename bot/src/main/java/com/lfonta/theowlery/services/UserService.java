@@ -3,8 +3,8 @@ package com.lfonta.theowlery.services;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
-import online.theowlery.entities.UserData;
-import online.theowlery.types.annotations.Service;
+import com.lfonta.theowlery.entities.UserData;
+import com.lfonta.theowlery.types.annotations.Service;
 
 import java.util.HashMap;
 import java.util.Map;

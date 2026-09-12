@@ -1,7 +1,7 @@
 package com.lfonta.theowlery.services;
 
-import online.theowlery.types.annotations.Service;
-import online.theowlery.types.interfaces.SharedContext;
+import com.lfonta.theowlery.types.annotations.Service;
+import com.lfonta.theowlery.types.interfaces.SharedContext;
 
 import java.util.HashMap;
 import java.util.Map;

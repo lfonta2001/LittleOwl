@@ -40,7 +40,7 @@ public final class ApplicationContext {
     private final Set<Class<?>> creating = new HashSet<>();
 
     private ApplicationContext() {
-        Reflections reflections = new Reflections("online.theowlery");
+        Reflections reflections = new Reflections("com.lfonta.theowlery");
 
         // Bean methods registration
 
