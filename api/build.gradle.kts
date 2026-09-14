@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("com.lfonta.theowlery.Main")
+    mainClass.set("com.lfonta.theowlery.ApiServer")
 }
 
 dependencies {

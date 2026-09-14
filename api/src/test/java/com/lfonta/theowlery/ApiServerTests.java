@@ -1,10 +1,10 @@
-package com.lfonta.theowlery.api;
+package com.lfonta.theowlery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiApplicationTests {
+class ApiServerTests {
 
     @Test
     void contextLoads() {
