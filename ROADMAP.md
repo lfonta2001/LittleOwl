@@ -6,7 +6,7 @@
 
 ### Tareas
 
-* [x] ISlashCommand
+* [x] SlashCommandContract
 * [x] CommandDescriptor
 * [x] CommandService
 * [x] Registro automático de comandos mediante reflection
@@ -31,9 +31,8 @@ Agregar un comando nuevo debería requerir únicamente:
 ### Tareas
 
 * [x] CommandContext
-* [x] CommandContextBuilder
+* [~] ContextService
 * [ ] EventContext
-* [ ] EventContextBuilder
 * [x] Inyección de CommandContext en los comandos
 
 ### Resultado esperado
@@ -90,8 +89,10 @@ Toda actividad relevante queda registrada automáticamente.
 * [x] MiddlewareContracts
 * [x] MiddlewareHandler
 * [ ] ContextMiddleware
-* [ ] CooldownMiddleware
+* [~] CooldownMiddleware
 * [ ] PermissionMiddleware
+* [ ] AntiRaidMiddleware
+* [ ] AntiSpamMiddleware
 * [ ] Hacer que los middlewares se ejecuten en todas las interacciones, incluidas las de los bots. Para el chequeo de spam mas que nada.
 
 ### Flujo esperado
@@ -120,12 +121,16 @@ Toda validación previa a la ejecución de comandos pasa por middlewares.
 
 ### Tareas
 
-* [ ] PostgreSQL
-* [ ] Pool de conexiones
-* [ ] DatabaseConfig
-* [ ] GuildRepository
-* [ ] UserRepository
-* [ ] Entidades básicas
+* [x] PostgreSQL
+* [x] Pool de conexiones
+* [~] DatabaseConfig
+* [~] GuildRepository
+* [~] UserRepository
+* [~] Entidades básicas
+* [x] Flyway y jOOQ codegen en el build
+* [ ] Migración V1
+* [ ] Generar código jOOQ
+* [ ] Unificar repositories y entidades duplicados entre bot y persistence
 
 ### Resultado esperado
 
@@ -139,11 +144,11 @@ Acceso a datos desacoplado de la lógica de negocio.
 
 ### Tareas
 
-* [ ] GuildService
-* [ ] UserService
-* [ ] CooldownService
+* [~] GuildService
+* [~] UserService
+* [~] CooldownService
 * [ ] PermissionService
-* [ ] LocalizationService
+* [x] LocalizationService
 
 ### Resultado esperado
 
@@ -174,10 +179,11 @@ Todos los textos se obtienen desde el sistema de localización.
 
 ### Primera tanda
 
-* [ ] ping
+* [~] ping
 * [ ] help
-* [ ] avatar
+* [~] avatar
 * [ ] owl
+* [ ] shutdown
 
 ### Segunda tanda
 
@@ -198,9 +204,9 @@ Comprobar que el flujo completo funciona correctamente.
 ### Tareas
 
 * [x] ReadyListener
-* [ ] GuildJoinListener
+* [~] GuildJoinListener
 * [ ] GuildLeaveListener
-* [ ] MessageCreateListener
+* [~] MessageCreateListener
 * [ ] MessageDeleteListener
 
 ### Resultado esperado
@@ -215,12 +221,13 @@ Infraestructura de eventos completamente operativa.
 
 ### Tareas
 
-* [ ] ModerationService
+* [~] ModerationService
 * [ ] SpamService
 * [ ] RaidProtector
 * [ ] WarnSystem
 * [ ] AntiSpamMiddleware
-* [ ] AntiRaidMiddleware
+* [~] AntiRaidMiddleware
+* [~] WarnService
 
 ### Resultado esperado
 
@@ -308,3 +315,7 @@ Hasta finalizar la Fase 5, evitar agregar funcionalidades complejas.
 Primero construir y estabilizar el framework interno del bot.
 
 Después construir módulos y comandos sobre esa base.
+
+## Tareas extra a hacer cuando termine todo
+
+- [ ] Generalizar el modulo de persistencia para que cada servicio pueda usar una base de datos distinta (Problema actual: Hay que buscar una manera de que cualquier base de datos que se use tenga la estrcutura esperada.)

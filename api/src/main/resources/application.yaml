@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: api
+
+logging:
+  level:
+    org:
+      springframework:
+        security: info
+
+littleowl:
+  database:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME}
+    host: ${DATABASE_HOST}
+    port: ${DATABASE_PORT}
+    name: ${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    max-pool-size: 10

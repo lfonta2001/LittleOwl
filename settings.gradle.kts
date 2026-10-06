@@ -1,9 +1,9 @@
-rootProject.name = "the-owlery"
+rootProject.name = "LittleOwl"
 
 include(
     "bot",
 //    "common",
-//    "persistence",
+    "persistence",
     "api",
 //    "dashboard",
 //    "docs",

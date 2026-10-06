@@ -76,7 +76,7 @@ apart from that, the project was barely in a middle point, so I considered it to
     ```sh
    git clone git@github.com:lfonta2001/LittleOwl.git
     ```
-3. Update or create variables in `.env` file or set them as environment variables. The file `.evn.example` is provided as a template.
+3. Update or create variables in `.env` file or set them as environment variables. The file `.env.example` is provided as a template.
 
 4. Run the bot:
    ```sh

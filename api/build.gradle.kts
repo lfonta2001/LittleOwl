@@ -1,28 +1,30 @@
 plugins {
     application
-    id("org.springframework.boot") version "4.1.1"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 application {
-    mainClass.set("com.lfonta.theowlery.ApiServer")
+    mainClass.set("com.lfonta.littleowl.ApiServer")
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    compileOnly("org.projectlombok:lombok")
+//    implementation(project(":core"))
+    implementation(project(":persistence"))
 
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor("org.projectlombok:lombok")
+    implementation(libs.springboot.starter.security)
+    implementation(libs.springboot.starter.oauth2.resource)
+    implementation(libs.springboot.starter.validation)
+    implementation(libs.springboot.starter.webmvc)
+    compileOnly(libs.lombok)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-    testCompileOnly("org.projectlombok:lombok")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testAnnotationProcessor("org.projectlombok:lombok")
+    developmentOnly(libs.springboot.devtools)
+    annotationProcessor(libs.lombok)
+
+    testImplementation(libs.springboot.test.starter.security)
+    testImplementation(libs.springboot.test.starter.oauth2.resource)
+    testImplementation(libs.springboot.test.starter.validation)
+    testImplementation(libs.springboot.test.starter.webmvc)
+    testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
 }

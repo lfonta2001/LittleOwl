@@ -3,18 +3,18 @@ plugins {
 }
 
 application {
-    mainClass.set("com.lfonta.theowlery.Main")
+    mainClass.set("com.lfonta.littleowl.Main")
 }
 
 dependencies {
+//    implementation(project(":core"))
+    implementation(project(":persistence"))
+    implementation(libs.jda)
+    implementation(libs.logback.classic)
+    implementation(libs.reflections)
 
-    implementation("net.dv8tion:JDA:6.3.2")
-    implementation("ch.qos.logback:logback-classic:1.5.34")
-    implementation("org.reflections:reflections:0.10.2")
-
-    compileOnly("org.projectlombok:lombok:1.18.46")
-    annotationProcessor("org.projectlombok:lombok:1.18.46")
-
-    testCompileOnly("org.projectlombok:lombok:1.18.46")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+    testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
 }

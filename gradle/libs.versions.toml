@@ -1,0 +1,44 @@
+[versions]
+jda = "6.7.0"
+logback = "1.6.5"
+reflections = "0.10.2"
+lombok = "1.18.48"
+hikari = "7.1.0"
+postgresql = "42.7.13"
+jooq = "3.21.9"
+junit = "6.1.3"
+flyway = "13.9.0" # If this is changed also change in :persistence:build.gradle.kts
+testcontainers = "2.0.5"
+springBoot = "4.1.1"
+springDependencyManagement = "1.1.7"
+
+[libraries]
+jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+hikari = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+testcontainers-postgresql = { module = "org.testcontainers:testcontainers-postgresql", version.ref = "testcontainers" }
+testcontainers-junit = { module = "org.testcontainers:testcontainers-junit-jupiter", version.ref = "testcontainers" }
+
+springboot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+springboot-starter-oauth2-resource = { module = "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server" }
+springboot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+springboot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+
+springboot-test-starter-security = { module = "org.springframework.boot:spring-boot-starter-security-test" }
+springboot-test-starter-oauth2-resource = { module = "org.springframework.boot:spring-boot-starter-security-oauth2-resource-server-test" }
+springboot-test-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation-test" }
+springboot-test-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
+
+[plugins]
+jooq-codegen = { id = "org.jooq.jooq-codegen-gradle", version.ref = "jooq" }
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }

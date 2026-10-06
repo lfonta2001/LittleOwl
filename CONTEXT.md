@@ -1,8 +1,8 @@
-# The Owlery - Project Context
+# Little Owl - Project Context
 
 ## Overview
 
-The Owlery is a long-term Discord bot project written in Java.
+Little Owl is a long-term Discord bot project written in Java.
 
 The goal is **not** to create a simple Discord bot, but to build a scalable platform that can eventually support multiple frontends and execution environments while sharing the same business logic.
 
@@ -56,7 +56,6 @@ Current modules:
 More modules are expected in the future, for example:
 
 - api
-- web
 - music
 - moderation
 - localization
@@ -122,7 +121,6 @@ External libraries should remain isolated whenever possible.
 Examples:
 
 - JDA should remain inside infrastructure layers.
-- Dotenv should only be used during application startup.
 - Persistence libraries should stay inside persistence modules.
 
 Business services should never directly depend on framework-specific APIs unless absolutely necessary.
